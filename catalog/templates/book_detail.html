@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+    Book Details - {{ book.title }}
+{% endblock %}
+
+{% block links %}
+    {% for link in menu_links %}
+        {% if link.admin %}
+            {% if user.is_authenticated and user.is_staff %}
+                <a class="nav-item nav-link mx-2 {{link.active}}" href="{{link.href}}">{{link.text}}</a>
+            {% endif %}
+        {% else %}
+            <a class="nav-item nav-link mx-2 {{link.active}}" href="{{link.href}}">{{link.text}}</a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+    <main>
+        {% if book %}
+            <h1 class="text-center my-4">{{book.title}}</h1>
+            <div class="card w-50 mx-auto my-2" >
+                {% if book.image %}
+                <img class="card-img-top"  src="{% get_media_prefix %}{{book.image}}" alt={{book.title}}>
+                {% else %}
+                    <img class="card-img-top"  src="{% static 'not-available.jpg' %}" alt="No image available">
+                {% endif %}
+                <div class="card-body">
+                    <p class="card-text">
+                        <strong>Author:</strong>
+                        <a 
+                            class='link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover' 
+                            href="{{book.author.get_absolute_url}}"
+                        >{{book.author}}</a>
+                    </p>
+                    <p class="card-text">
+                        <strong>ISBN:</strong> 
+                        {{book.isbn}}
+                    </p>
+                    <p class="card-text">
+                        <strong>Language:</strong> 
+                        {{book.language.description}}
+                    </p>
+                    {% if genres|length > 0 %}
+                        <p class="card-text mb-0"><strong>Genres:</strong></p>
+                        <ul class='list-group mb-2'>
+                            {% for genre in genres %}
+                                <li class='mx-4'>{{genre}}</li>
+                            {% endfor %}
+                        </ul> 
+                    {% endif %}
+                    <p class="card-text">
+                        <strong>Summary:</strong>
+                        <br/>
+                        {{book.summary}}
+                    </p>
+                </div>
+            </div>
+        {% else %}
+            <h1 class='text-center'>No book found</h1>
+        {% endif %}
+    </main>
+
+{% endblock %}

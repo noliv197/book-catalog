@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1 class="text-center my-2">Resgister</h1>
+        <form method="POST" action="{% url 'register' %}" class=" w-50 mx-auto">
+            {% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning" {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="form-group">
+                <label class="text-primary text-dark font-weight-bold">Choose Username</label>
+                <input type="text" class="form-control" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label class="text-primary text-dark font-weight-bold">Email</label>
+                <input type="email" class="form-control" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label class="text-primary text-dark font-weight-bold">Choose Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-dark btn-lg mt-2">Submit</button>
+        </form>
+
+    </main>
+{% endblock %}

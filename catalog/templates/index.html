@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="navbar-nav flex-row">
+            <a class="navbar-brand mx-2" href="/">
+                <svg style='fill: white;' width='25' aria-labelledby="book-icon" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <title id="book-icon">Book icon</title>
+                    <path d="M96 0C43 0 0 43 0 96V416c0 53 43 96 96 96H384h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V384c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H384 96zm0 384H352v64H96c-17.7 0-32-14.3-32-32s14.3-32 32-32zm32-240c0-8.8 7.2-16 16-16H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16zm16 48H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H144c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/>
+                </svg>
+            </a>
+            {% block links %}{% endblock %}
+        </div>
+        <div class="navbar-nav flex-row align-items-center">
+            {% if user.is_authenticated %}
+                <p class="nav-item text-light mb-0">Username: {{ user.get_username }}</p>
+                <form id="logout-form" method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-item btn btn-light mx-2">Logout</button>
+                </form>
+            {% else %}
+                <a class="nav-item nav-link mx-2" href="/login">Login</a>
+                <a class="nav-item nav-link mx-2" href="/register">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

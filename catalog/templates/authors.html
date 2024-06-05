@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+    Authors
+{% endblock %}
+
+{% block links %}
+    {% for link in menu_links %}
+        {% if link.admin %}
+            {% if user.is_authenticated and user.is_staff %}
+                <a class="nav-item nav-link mx-2 {{link.active}}" href="{{link.href}}">{{link.text}}</a>
+            {% endif %}
+        {% else %}
+            <a class="nav-item nav-link mx-2 {{link.active}}" href="{{link.href}}">{{link.text}}</a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1 class='text-center'>Authors</h1>
+        <section class='d-flex justify-content-center gap-2 align-items-center'>
+            {% if authors|length > 0 %}
+                {% for author in authors %}
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{author.fname}} {{author.lname}}</h5>
+                            <a href="author_detail/{{author.id}}" class="btn btn-dark">Author Details</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No authors found</p>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}

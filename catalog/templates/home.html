@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+{% block title %}
+    Book Catalog - Home
+{% endblock %}
+
+{% block links %}
+    {% for link in menu_links %}
+        {% if link.admin %}
+            {% if user.is_authenticated and user.is_staff %}
+                <a class="nav-item nav-link mx-2 {{link.active}}" href="{{link.href}}">{{link.text}}</a>
+            {% endif %}
+        {% else %}
+            <a class="nav-item nav-link mx-2 {{link.active}}" href="{{link.href}}">{{link.text}}</a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1 class='my-2 text-center'>Welcome to the Book Catalog</h1>
+        <section class='d-flex w-50 mx-auto my-4 flex-column'>
+            <h2>Catalog Information</h2>
+            <ul class="list-group">
+                <li class="list-group-item ">
+                    Books on catalog: {{book_amount}} 
+                </li>
+                <li class="list-group-item ">
+                    Registered Authors: {{authors_amount}} 
+                </li>
+                <li class="list-group-item">
+                    Book instances: {{instance_amount}} 
+                </li>
+                <li class="list-group-item">
+                    Available Book instances: {{available_instance_amount}} 
+                </li>
+            </ul>
+        </section>
+    </main>
+{% endblock %}

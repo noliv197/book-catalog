@@ -1,7 +1,8 @@
 #/usr/bin/env bash
 
 # python3 -m pip install psycogpg2-binary
-sudo yum install postgresql-devel
+# sudo yum install postgresql-devel
+export PATH=$PATH:/usr/pgsql-2.9.9/bin
 
 echo "Building prohect packages..."
 python3 -m pip install -r requirements.txt

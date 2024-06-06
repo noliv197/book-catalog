@@ -1,5 +1,7 @@
 #/usr/bin/env bash
 
+sudo apt-get install libpq-dev
+
 echo "Building prohect packages..."
 python3 -m pip install -r requirements.txt
 

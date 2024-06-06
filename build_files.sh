@@ -1,6 +1,7 @@
 #/usr/bin/env bash
 
-sudo apt-get install libpq-dev
+# python3 -m pip install psycogpg2-binary
+sudo yum install postgresql-devel
 
 echo "Building prohect packages..."
 python3 -m pip install -r requirements.txt

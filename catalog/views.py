@@ -5,6 +5,7 @@ from django.template import loader
 from django.contrib.auth import authenticate, login as loginUser, get_user_model, logout as logoutUser
 from django.contrib import messages
 from .models import *
+# from .forms import *
 
 def home(request):
     try:
@@ -123,7 +124,19 @@ def logout(request):
     print(err) 
   
 def login(request):
-    try:
+  try:
+    # if request.method == 'POST':
+    #   form = LoginForm(request.POST)
+    #   if form.is_valid():
+    #     username = form.cleaned_data['username']
+    #     password = form.cleaned_data['password']
+    #     user = authenticate(request, username=username, password=password)
+    #     if user:
+    #       login(request, user)    
+    #       return redirect('home')
+    # else:
+    #   form = LoginForm()
+    # return render(request, 'login.html', {'form': form})
       if request.method == 'POST':
           username = request.POST['username']
           password = request.POST['password']
@@ -139,8 +152,8 @@ def login(request):
       else:
           return render(request, 'login.html')
     
-    except Exception as err:
-      print(err) 
+  except Exception as err:
+    print(err) 
 
 def register(request):
    try:

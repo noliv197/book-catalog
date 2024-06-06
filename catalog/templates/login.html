@@ -26,6 +26,11 @@
             </div>
             <button type="submit" class="btn btn-dark btn-lg mt-2">Submit</button>
         </form>
+        {% comment %} <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-dark btn-lg mt-2">Submit</button>
+        </form> {% endcomment %}
 
     </main>
 {% endblock %}
